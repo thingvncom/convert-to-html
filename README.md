@@ -1,2 +1,2 @@
-# convert-to-html
+# Text & Markdown to HTML Converter
 Convert text, markdown to HTML
