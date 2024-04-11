@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text & Markdown to HTML Converter</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h1 class="text-center mb-4">Text & Markdown to HTML Converter</h1>
+      <div class="form-group">
+        <textarea
+          id="textInput"
+          class="form-control"
+          rows="5"
+          placeholder="Enter your text or markdown here..."
+        ></textarea>
+      </div>
+      <div class="d-flex justify-content-center mt-3">
+        <button onclick="convertAndCopy('text')" class="btn btn-primary me-2">
+          Convert Text
+        </button>
+        <button onclick="convertAndCopy('markdown')" class="btn btn-success">
+          Convert Markdown
+        </button>
+      </div>
+      <div id="htmlOutput" class="mt-4 p-3 bg-light rounded"></div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+
+    <script>
+      function convertAndCopy(type) {
+        const textInput = document.getElementById("textInput").value.trim();
+        let htmlOutput;
+
+        if (type === "text") {
+          htmlOutput = convertTextToHTML(textInput);
+        } else if (type === "markdown") {
+          htmlOutput = convertMarkdownToHTML(textInput);
+        }
+
+        document.getElementById("htmlOutput").innerHTML = htmlOutput;
+        navigator.clipboard.writeText(htmlOutput).then(() => {
+          showCopyMessage();
+        });
+      }
+
+      function convertTextToHTML(text) {
+        const lines = text.split("\n").filter((line) => line.trim() !== "");
+        let html = "<h3>" + lines[0] + "</h3>\n<ul>";
+        for (let i = 1; i < lines.length; i++) {
+          html += "\n  <li>" + lines[i] + "</li>";
+        }
+        html += "\n</ul>";
+        return html;
+      }
+
+      function convertMarkdownToHTML(markdown) {
+        const converter = new showdown.Converter();
+        return converter.makeHtml(markdown);
+      }
+
+      function showCopyMessage() {
+        const copyMessage = document.createElement("div");
+        copyMessage.classList.add(
+          "alert",
+          "alert-success",
+          "mt-3",
+          "text-center"
+        );
+        copyMessage.textContent = "HTML copied to clipboard!";
+        document.querySelector(".container").appendChild(copyMessage);
+        setTimeout(function () {
+          copyMessage.remove();
+        }, 2000);
+      }
+
+      // function showCopyMessage() {
+      //   const copyMessage = document.createElement("div");
+      //   copyMessage.textContent = "HTML copied to clipboard!";
+      //   copyMessage.style.backgroundColor = "#4caf50";
+      //   copyMessage.style.color = "#fff";
+      //   copyMessage.style.padding = "10px";
+      //   copyMessage.style.borderRadius = "5px";
+      //   copyMessage.style.marginTop = "10px";
+      //   copyMessage.style.textAlign = "center";
+      //   document.querySelector(".container").appendChild(copyMessage);
+      //   setTimeout(function () {
+      //     copyMessage.remove();
+      //   }, 2000);
+      // }
+    </script>
+  </body>
+</html>
