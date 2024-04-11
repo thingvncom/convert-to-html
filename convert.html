@@ -12,6 +12,20 @@
     />
   </head>
   <body>
+    <div class="container">
+      <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">Home</a>
+          </li>
+          <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+        </ul>
+      </header>
+    </div>
+
     <div class="container mt-4">
       <h1 class="text-center mb-4">Text & Markdown to HTML Converter</h1>
       <div class="form-group">
@@ -81,26 +95,14 @@
           "text-center"
         );
         copyMessage.textContent = "HTML copied to clipboard!";
-        document.querySelector(".container").appendChild(copyMessage);
+        // document.querySelector(".container").appendChild(copyMessage);
+        document
+          .querySelector("#htmlOutput")
+          .parentNode.appendChild(copyMessage);
         setTimeout(function () {
           copyMessage.remove();
         }, 2000);
       }
-
-      // function showCopyMessage() {
-      //   const copyMessage = document.createElement("div");
-      //   copyMessage.textContent = "HTML copied to clipboard!";
-      //   copyMessage.style.backgroundColor = "#4caf50";
-      //   copyMessage.style.color = "#fff";
-      //   copyMessage.style.padding = "10px";
-      //   copyMessage.style.borderRadius = "5px";
-      //   copyMessage.style.marginTop = "10px";
-      //   copyMessage.style.textAlign = "center";
-      //   document.querySelector(".container").appendChild(copyMessage);
-      //   setTimeout(function () {
-      //     copyMessage.remove();
-      //   }, 2000);
-      // }
     </script>
   </body>
 </html>
